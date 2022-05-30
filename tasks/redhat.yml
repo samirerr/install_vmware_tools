@@ -1,0 +1,27 @@
+---
+- name: Download build scripts
+  unarchive:
+    src: "{{ vmtools_pkg }}"
+    dest: "{{ dest_pkg }}"
+    owner: "{{ user_appliance }}"
+    mode: 0755
+    list_files: true
+  register: found_directories
+
+- shell: |
+    yum install open-vm-tools* -y
+    yum install compat-openssl* -y
+    yum install numactl-libs -y
+  become: yes
+
+- name: install package in order
+  shell: 
+    cmd: "sudo rpm -ivh {{item}} --force"
+    chdir: /tmp/vmtools_and_other_rpms/
+  with_items: 
+    - libm*
+    - xmlsec*
+    - fuse*
+  notify:
+    - start vmtoolsd
+    - enabled vmtoolsd

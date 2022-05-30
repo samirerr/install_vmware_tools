@@ -1,0 +1,3 @@
+---
+vmtools_pkg: vmtools_and_other_rpms.forSL10.1-0L7.8.tgz
+dest_pkg: /tmp

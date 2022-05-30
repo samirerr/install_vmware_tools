@@ -1,0 +1,12 @@
+--- 
+- name: start vmtoolsd
+  become: true
+  service:
+    name: "{{ service_name }}"
+    state: started
+
+- name: enabled vmtoolsd
+  become: true
+  service:
+    name: "{{ service_name }}"
+    enabled: true
